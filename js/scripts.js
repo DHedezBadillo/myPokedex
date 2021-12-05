@@ -34,7 +34,7 @@ const pokemonList = [
 
 //Lists Pokemon names and heights
 for (let i=0; i<pokemonList.length; i++) {
-    document.write ('<br><br>'+pokemonList [i].name + ' (height: ' + pokemonList [i].height + '),');
+    document.write ('<div>'+pokemonList [i].name + ' (height: ' + pokemonList [i].height + '), </div>');
 
 //checks for a height of 1.7 or higher, then gives a message if true   
     if (pokemonList [i].height >=1.7) {
