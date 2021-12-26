@@ -34,14 +34,10 @@ let pokemonRepository = (function () {
     
     ];
 
-    //A function to add new Pokemons to the repository, checks to make sure it is an object, and returns a message when criteria is not met.
-    function add(addedPokemon) {
-        if (typeof addedPokemon === 'object') {
-        pokemonList.push(addedPokemon);
-        } else {
-            console.log('Cannot add - this must not be an object');
-        }
-    }
+    //A function to add new Pokemons to the repository.
+    function add(pokemon) {
+        pokemonList.push(pokemon);
+      }
       
     //Function to return all item within the pokemonList array.
     function getAll() {
