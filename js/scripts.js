@@ -43,28 +43,40 @@ let pokemonRepository = (function () {
     function getAll() {
         return pokemonList;
     }
+
+    //Puts the pokemon names within buttons, and when clicked, displays the pokemon keys
+    function addListItem(pokemon) {
+        let pokemonList = document.querySelector(".pokemon-list");
+        let listpokemon = document.createElement("li");
+        let button = document.createElement("button");
+        button.innerText = pokemon.name;
+        button.classList.add("button-class");
+        listpokemon.appendChild(button);
+        pokemonList.appendChild(listpokemon);
+        button.addEventListener('click', function (event) {
+            showDetails(pokemon);
+        });
+
+    function showDetails(pokemon) {
+        document.write('Name: ' + pokemon.name + ', Height: ' + pokemon.height + ', Type: ' + pokemon.type);
+    }
+
+    }
     //Returns the functions declared above.    
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        addListItem: addListItem
     };
 })();
 
 //Adds new pokemon and its height
-pokemonRepository.add({name: 'Pikachu', height: 1.3})
+pokemonRepository.add({name: 'Pikachu', height: 1.3, type: 'air'})
 
-//A function to print the names and heights of all pokemons, and also to return a message if it is bigger than 1.7
-function printDetails(list) {
-    list.forEach(function(pokemon) {
-        if (pokemon.height >= 1.7){
-            document.write('<p>' + pokemon.name + ' (height: ' + pokemon.height + ') - Wow - that\'s big! </p>');
-        } else {
-            document.write('<p>' + pokemon.name + ' (height: ' +pokemon.height + ') </p>');
-        }
-    });
-}
 
-//Calls the printDetails function to print out the pokemonRepository.
-printDetails(pokemonRepository.getAll());
-
+pokemonRepository.getAll().forEach( function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  }
+ );
+  
 
