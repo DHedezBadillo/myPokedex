@@ -1,42 +1,18 @@
 //Creates a pokemon repository within an IIFE 
 let pokemonRepository = (function () {
-    const pokemonList = [
-
-        {
-            name: 'Golem',
-            height: 1.4,
-            type: ['rock', 'ground']
-        },
-    
-        {
-            name: 'Venusaur',
-            height: 1.4,
-            type: ['grass', 'poison']
-        },
-    
-        {
-            name: 'Pidgey',
-            height: 0.3,
-            type: ['flying', 'normal']
-        },
-    
-        {
-            name: ' Charizard',
-            height: 1.7,
-            type: ['fire', 'flying']
-        },
-    
-        {
-            name: 'Weedle',
-            height: 0.3,
-            type: ['bug', 'poison']
-        }
-    
-    ];
+    const pokemonList = [];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
     //A function to add new Pokemons to the repository.
     function add(pokemon) {
-        pokemonList.push(pokemon);
+        if (
+            typeof pokemon === "object" &&
+            "name" in pokemon 
+        ) {
+            pokemonList.push(pokemon);
+        } else {
+            document.write('Pokemon is not correct');
+        }   
       }
       
     //Function to return all item within the pokemonList array.
@@ -57,22 +33,63 @@ let pokemonRepository = (function () {
             showDetails(pokemon);
         });
 
-    function showDetails(pokemon) {
-        document.write('Name: ' + pokemon.name + ', Height: ' + pokemon.height + ', Type: ' + pokemon.type);
+    
+
+    function loadList() {
+        return fetch(apiUrl).then(function (response) {
+            return response.json();
+        }).then(function(json) {
+            json.results.forEach(function (item) {
+                let pokemon = {
+                    name: item.name,
+                    detailsUrl: item.url
+                };
+                add(pokemon);
+            });
+        }).catch(function (e) {
+            console.error(e);
+        })
     }
 
+    function loadDetails(item) {
+        let url = item.detailsUrl;
+        return fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (details) {
+            //adds the details to the item
+            item.imageUrl = details.sprites.front_default;
+            item.height = details.height;
+            item.types = details.types;
+        }).catch(function (e) {
+            console.error(e);
+        });
+    }
+
+    function showDetails(pokemon) {
+        loadDetails(pokemon).then(function () {
+            document.write(pokemon);
+        });
+    }
     }
     //Returns the functions declared above.    
     return {
         add: add,
         getAll: getAll,
-        addListItem: addListItem
+        addListItem: addListItem,
+        loadList: loadList,
+        loadDetails: loadDetails,
+        showDetails: showDetails
     };
 })();
 
+pokemonRepository.loadList().then(function() {
+    pokemonRepository.getAll().forEach(function(pokemon) {
+        pokemonRepository.addListItem(pokemon);
+    });                                                                                                           
+});
+
 //Adds new pokemon and its height
 pokemonRepository.add({name: 'Pikachu', height: 1.3, type: 'air'})
-
 
 pokemonRepository.getAll().forEach( function(pokemon) {
     pokemonRepository.addListItem(pokemon);
