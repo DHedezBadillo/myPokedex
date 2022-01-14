@@ -15,7 +15,7 @@ let pokemonRepository = (function () {
         }   
       }
       
-    //Function to return all item within the pokemonList array.
+    //Function to return all items within the pokemonList array.
     function getAll() {
         return pokemonList;
     }
@@ -32,8 +32,7 @@ let pokemonRepository = (function () {
         button.addEventListener('click', function (event) {
             showDetails(pokemon);
         });
-
-    
+        }   
 
     function loadList() {
         return fetch(apiUrl).then(function (response) {
@@ -70,7 +69,7 @@ let pokemonRepository = (function () {
             document.write(pokemon);
         });
     }
-    }
+
     //Returns the functions declared above.    
     return {
         add: add,
@@ -87,9 +86,6 @@ pokemonRepository.loadList().then(function() {
         pokemonRepository.addListItem(pokemon);
     });                                                                                                           
 });
-
-//Adds new pokemon and its height
-pokemonRepository.add({name: 'Pikachu', height: 1.3, type: 'air'})
 
 pokemonRepository.getAll().forEach( function(pokemon) {
     pokemonRepository.addListItem(pokemon);
