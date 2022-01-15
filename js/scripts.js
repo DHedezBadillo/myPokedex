@@ -11,7 +11,7 @@ let pokemonRepository = (function () {
         ) {
             pokemonList.push(pokemon);
         } else {
-            document.write('Pokemon is not correct');
+            console.log('Pokemon is not correct');
         }   
       }
       
@@ -66,7 +66,7 @@ let pokemonRepository = (function () {
 
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
-            document.write(pokemon);
+            console.log(pokemon);
         });
     }
 
