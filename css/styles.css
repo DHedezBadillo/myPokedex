@@ -10,11 +10,12 @@ body {
     box-sizing: border-box;
   }
 
-  #modal-container {
+  .modal {
     display: none;
   }
  
-  #modal-container.is-visible {
+  .modal.is-visible {
+    display: inline-block!important;
     position: fixed;
     padding: 20px;
     box-sizing: border-box;
@@ -27,19 +28,6 @@ body {
     overflow: auto;
     display: grid;
     text-align: center; 
-  }
-
-
-
-  .modal {
-    margin: auto;
-    display: inline-block;
-    box-sizing: border-box;
-    background: #fff;
-    padding: 15px;
-    width: 100%;
-    max-width: 700px;
-    text-align: left;
   }
 
   .modal-close {
@@ -66,6 +54,8 @@ body {
   .button-class {
     background-color: #4CAF50;
   }
+
+  
 
 
 
